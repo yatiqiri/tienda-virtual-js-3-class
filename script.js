@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener("DOMContentLoaded", () => {
   fetchData();
-})
+});
 const fetchData = async () => {
   try {
     const res = await fetch("api.json");
@@ -10,4 +10,4 @@ const fetchData = async () => {
     console.log(error);
   }
 };
-console.log("data object", fetchData.);
+console.log("data object", fetchDatafdfd);
