@@ -5,7 +5,7 @@ const fetchData = async () => {
   try {
     const res = await fetch("api.json");
     const data = await res.json();
-    console.log("jose", data);
+    //fff
     console.log("ccamaaa", data);
     console.log(data);
   } catch (error) {
