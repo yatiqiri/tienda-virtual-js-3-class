@@ -10,4 +10,4 @@ const fetchData = async () => {
     console.log(error);
   }
 };
-console.log("data object", fetchDatafdfd);
+console.log("data object");
