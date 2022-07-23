@@ -1,15 +1,96 @@
+const cards = document.getElementById("cards");
+const items = document.getElementById("items");
+const templateCard = document.getElementById("template-card").content;
+const templateCart = document.getElementById("content-data").content;
+const fragment = document.createDocumentFragment();
+let cart = {};
+
 document.addEventListener("DOMContentLoaded", () => {
   fetchData();
 });
+
+cards.addEventListener("click", (e) => {
+  addCart(e);
+});
+
 const fetchData = async () => {
   try {
-    const res = await fetch("api.json");
+    const res = await fetch("products.json");
     const data = await res.json();
-    //fff
-    console.log("ccamaaa", data);
-    console.log(data);
+    pintarCards(data);
   } catch (error) {
     console.log(error);
   }
 };
-console.log("data object");
+const pintarCards = (data) => {
+  data.forEach((producto) => {
+    console.log("ccama", templateCard);
+    templateCard.querySelector(".content-title").textContent = producto.name;
+    templateCard.querySelector(".content-price").textContent =
+      "$" + producto.sale_price;
+    templateCard.querySelector(".content-descripcion").textContent =
+      producto.description;
+    templateCard
+      .querySelector("img")
+      .setAttribute("src", producto.image.thumbnail);
+
+    templateCard.querySelector(".btn-dark").dataset.id = producto.id;
+    const clone = templateCard.cloneNode(true);
+    fragment.appendChild(clone);
+  });
+  cards.appendChild(fragment);
+};
+
+const addCart = (e) => {
+  console.log(e.target.classList.contains("btn-dark"));
+  if (e.target.classList.contains("btn-dark")) {
+    setCart(e.target.parentElement);
+  }
+  //detener cualquier otro evento que se pueda generar en nuestro item , porque se podria heredar eventos del contenedor padre
+  e.stopPropagation();
+};
+
+const setCart = (objeto) => {
+  console.log(objeto);
+  const products = {
+    id: objeto.querySelector(".btn-dark").dataset.id,
+    // imag: objeto.querySelector(".card-img-top").textContent,
+    title: objeto.querySelector(".content-title").textContent,
+    description: objeto.querySelector(".content-descripcion").textContent,
+    price: objeto.querySelector(".content-price").textContent,
+    quantity: 1,
+  };
+  if (cart.hasOwnProperty(products.id)) {
+    products.quantity = cart[products.id].quantity + 1;
+  }
+  cart[products.id] = { ...products };
+  console.log(cart);
+  pintarCart();
+};
+
+const pintarCart = () => {
+  items.innerHTML = "";
+  console.log(cart);
+  Object.values(cart).forEach((producto) => {
+    // templateCart.querySelector(".img-data").textContent = producto.imag;
+    console.log(templateCart);
+    templateCart
+      .querySelector(".content-data-text")
+      .querySelector(".content-title-data").textContent = producto.title;
+    templateCart
+      .querySelector(".content-data-text")
+      .querySelector(".content-priceU-data").textContent =
+      "Unit price: " + producto.price;
+
+    templateCart
+      .querySelector(".content-data-text")
+      .querySelector(".content-cart-quantity")
+      .querySelector(".cart-data-quantity").textContent = producto.quantity;
+    templateCart
+      .querySelector(".content-data-price")
+      .querySelector(".content-price").textContent = producto.price;
+    const clone = templateCart.cloneNode(true);
+    fragment.appendChild(clone);
+  });
+  items.appendChild(fragment);
+};
