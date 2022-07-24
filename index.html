@@ -46,6 +46,9 @@
           <div class="col-sm-12">
             <div id="items"></div>
           </div>
+          <div class="col-sm-12">
+            <div id="footer-cart"></div>
+          </div>
 
         </div>
       </div>
@@ -59,11 +62,11 @@
           <p class="content-title-data">Descripcion</p>
           <p class="content-priceU-data">Precio</p>
           <div class="content-cart-quantity">
-            <button class="btn btn-dark btn-sm">
+            <button class="btn btn-dark btn-sm btn-sum">
                 +
             </button>
-            <p class="cart-data-quantity">Precio</p>
-            <button class="btn btn-dark btn-sm">
+            <p class="cart-data-quantity">Cantidad</p>
+            <button class="btn btn-dark btn-sm btn-rest">
                 -
             </button>
           </div>
@@ -81,12 +84,20 @@
         <div class="card">
           <img src="" alt="" class="card-img-top w-90" style="height: 250px">
           <div class="card-body">
+            <img src="" alt="" class="card-img-top card-imag-disable w-90" style="height: 250px; display:none;" >
             <p class="content-title">Titulo</p>
             <p class="content-descripcion">Descripcion</p>
             <p class="content-price">Precio</p>
             <button class="btn btn-dark">Comprar</button>
           </div>
         </div>
+      </div>
+    </template>
+
+    <template id="template-footer">
+      <div style="display: flex; flex-direction: row; gap: 65px;">
+        <p>Proceed To Checkout</p>
+        <p>Price</p>
       </div>
     </template>
 
