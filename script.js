@@ -7,6 +7,73 @@ const templateFooter = document.getElementById("template-footer").content;
 const fragment = document.createDocumentFragment();
 let cart = {};
 
+function BuscarCad(texto, subt, num)
+{
+  var i, x, n;
+  n = num || 0;
+  for (x = n; x <= texto.length - subt.length; x++)
+  {
+    i = 0;
+    while (i < subt.length && texto[x + i] == subt[i])
+      i++;
+    if (i == subt.length)
+      return x;
+  }
+  return -1;
+}
+
+function BuscarPro() {
+  var Schp, Vp, k, ti, pr, padre;
+  Schp = document.getElementById('buscador');
+  Vp = document.querySelectorAll('.card-body  ');
+
+  for (k = 0; k < Vp.length; k += 2)
+  {
+    ti = BuscarCad(Vp[k].innerHTML, Schp.value);
+    pr = BuscarCad(Vp[k + 1].innerHTML, Schp.value);/*contenido*/
+    padre = Vp[k].parentNode;
+    if (ti == -1 && pr == -1)
+      padre.style.display = "none";
+    else
+      padre.style.display = "inline-block";
+    }
+}
+
+function Iniciar() {
+  var k, Vmarp, Vdata;
+  Vmarp = document.querySelectorAll('.card');
+  
+  for (k = 0; k < Vmarp.length; k++)
+  {
+    Vmarp[k].innerHTML += "<p>" 
+    }
+}
+window.onload = Iniciar;
+/* document.addEventListener("keyup", e => {
+  
+  if (e.target.matches("#buscador")) {
+
+if(e.key ==="Escape")e.target.value = ""
+
+
+
+    document.querySelectorAll(".content-title").forEach(fruta => {
+      fruta.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+        ? fruta.classList.remove("filtro")
+        :fruta.classList.add("filtro")
+    })
+  }
+}) */
+
+
+
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   fetchData();
   if (localStorage.getItem("cart")) {
